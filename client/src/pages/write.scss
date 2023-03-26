@@ -1,0 +1,29 @@
+.write{
+    height: 100vh;
+
+}
+
+.writer-content{
+    height: 50vh;
+    margin: 10%;
+    border-radius: 3px solid black;
+    border: 1px solid black;
+}
+
+input{
+    height: 10%;
+    width: 96% ;
+    margin: 10px;
+    border-bottom:none;
+}
+
+.ql-editor{
+    height: 200px;
+    width:100%;
+}
+
+.btnPublish{
+    position: relative;
+    left: 110px;
+    top:-10px;
+}
