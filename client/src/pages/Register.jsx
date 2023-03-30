@@ -17,24 +17,17 @@ const Register = () => {
 
   const handleChange = (e) =>{
     setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
-    // console.log(inputs);
   }
-
-  console.log(inputs);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
       await axios.post("http://localhost:8800/api/auth/register", inputs);
       // console.log(res);
       navigate("/login");
     } catch (err) {
       setError(err.response.data);
     }
-    
-
   };
 
   return (
@@ -47,7 +40,7 @@ const Register = () => {
         <input type='password' placeholder='Password' name='password' onChange={handleChange}/>
         {/* <input type='password' placeholder='Re-write password' onChange={handleChange}/> */}
         <button onClick={handleSubmit}>Register</button>
-        {err && <p className='p-err'>{err}</p>}
+        <p className='p-err'>{err}</p>
         <span>Do you have an account? <Link to='/login'>Login</Link></span>
       </form>
     </div> 
