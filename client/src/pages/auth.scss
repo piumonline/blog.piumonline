@@ -45,7 +45,7 @@ $background:#f5f1e7;;
     }
 
     span{
-        font-size: 13px;
+        font-size: 13px;    
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -58,4 +58,11 @@ $background:#f5f1e7;;
         align-items: center;
         background-color: $background;
         height: 100vh;
+
+        .p-err{
+            display: flex;
+            justify-content: center;
+            color: red;
+            font-size: small;
+        }
     }

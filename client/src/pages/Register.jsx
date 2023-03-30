@@ -1,18 +1,53 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './auth.scss';
+import axios from 'axios';
 
 const Register = () => {
+
+  const [err, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const[inputs, setInputs] = useState({
+    firstname:"",
+    lastname:"",
+    email:"",
+    password:"",
+  });
+
+  const handleChange = (e) =>{
+    setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
+    // console.log(inputs);
+  }
+
+  console.log(inputs);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
+      await axios.post("http://localhost:8800/api/auth/register", inputs);
+      // console.log(res);
+      navigate("/login");
+    } catch (err) {
+      setError(err.response.data);
+    }
+    
+
+  };
+
   return (
     <div className='reg'>
       <h1>Register</h1>
       <form>
-        <input type='text' placeholder='First Name'/>
-        <input type='text' placeholder='Last Name'/>
-        <input type='text' placeholder='Email'/>
-        <input type='password' placeholder='Password'/>
-        <input type='password' placeholder='Re-write password'/>
-        <button>Register</button>
+        <input type='text' placeholder='First Name' name='firstname' onChange={handleChange}/>
+        <input type='text' placeholder='Last Name' name='lastname' onChange={handleChange}/>
+        <input type='text' placeholder='Email' name='email' onChange={handleChange}/>
+        <input type='password' placeholder='Password' name='password' onChange={handleChange}/>
+        {/* <input type='password' placeholder='Re-write password' onChange={handleChange}/> */}
+        <button onClick={handleSubmit}>Register</button>
+        {err && <p className='p-err'>{err}</p>}
         <span>Do you have an account? <Link to='/login'>Login</Link></span>
       </form>
     </div> 
