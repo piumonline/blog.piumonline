@@ -1,38 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './auth.scss';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
-
-  const [err, setError] = useState(null);
-  const navigate = useNavigate();
 
   const[inputs, setInputs] = useState({
     email:"",
     password:"",
   });
 
+  const [err, setError] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
   const handleChange = (e) =>{
     setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
-    // console.log(inputs);
   }
 
-  console.log(inputs);
-
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     // const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
+  //     await axios.post("http://localhost:8800/api/auth/login", inputs);
+  //     // console.log(res);
+  //     navigate("/");
+  //   } catch (err) {
+  //     setError(err.response.data);
+  //   }
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const res = await axios.post("http://localhost:8800/api/auth/register", inputs);
-      await axios.post("http://localhost:8800/api/auth/login", inputs);
-      // console.log(res);
+      await login(inputs)
       navigate("/");
     } catch (err) {
       setError(err.response.data);
     }
-  }
+  };
 
   return (
     <div className='auth'>
